@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; img-src 'self' file: data:; media-src 'self' file:; style-src 'self' 'unsafe-inline' file:; font-src 'self' file:; script-src 'self' file:">
+  <title>ترتيبة — Tartiba</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="viewport" class="gingham">
+    <div id="stage">
+
+      <!-- ===== Calendar board ===== -->
+      <section id="cal-screen" class="screen">
+        <div class="photo-layer" id="photo-layer"></div>
+        <img class="board" src="../../assets/board.png" alt="" draggable="false">
+        <div class="photo-hits" id="photo-hits"></div>
+
+        <div class="notice" id="notice">
+          <span class="tape"></span>
+          <b>لا تضع صورًا شخصية</b>
+          <span>Don't add personal photos</span>
+        </div>
+
+        <div class="cal" id="cal">
+          <div class="cal-head">
+            <div class="cal-title">
+              <label class="pick"><select id="month-select"></select><span class="caret">▾</span></label>
+              <label class="pick year"><select id="year-select"></select><span class="caret">▾</span></label>
+            </div>
+            <div class="cal-sub">
+              <span id="hijri-range"></span>
+              <button id="today-btn" class="today-btn"></button>
+            </div>
+          </div>
+          <div class="weekdays" id="weekdays"></div>
+          <div class="cal-line"></div>
+          <div class="grid" id="grid"></div>
+        </div>
+
+        <button class="quote" id="quote"><span id="quote-text" dir="auto"></span></button>
+      </section>
+
+      <!-- ===== Tasks ===== -->
+      <section id="tasks-screen" class="screen" hidden>
+        <div class="task-card">
+          <div class="day-head">
+            <div class="greg" id="day-greg"></div>
+            <div class="hij" id="day-hijri"></div>
+          </div>
+          <div class="task-list" id="task-list"></div>
+          <form class="add-bar" id="add-form" autocomplete="off">
+            <input id="add-input" dir="auto" maxlength="200">
+            <button type="button" class="timer-toggle" id="add-timer-btn"></button>
+            <button type="submit" class="add-btn" id="add-btn"></button>
+          </form>
+        </div>
+        <div class="tag" id="tag">
+          <svg viewBox="0 0 520 130" preserveAspectRatio="none" class="tag-shape">
+            <path d="M18 4 H448 Q458 4 466 11 L509 54 Q519 65 509 76 L466 119 Q458 126 448 126 H18 Q4 126 4 112 V18 Q4 4 18 4Z" fill="var(--tag)"/>
+            <path d="M24 16 H440 Q446 16 451 21 L488 58 Q494 65 488 72 L451 109 Q446 114 440 114 H24 Q16 114 16 106 V24 Q16 16 24 16Z" fill="none" stroke="var(--tagDash)" stroke-width="3" stroke-dasharray="14 9"/>
+          </svg>
+          <span id="tag-text"></span>
+        </div>
+      </section>
+
+      <!-- ===== Side toolbar ===== -->
+      <nav class="toolbar" id="toolbar">
+        <button class="tool" id="back-btn" hidden></button>
+        <button class="tool" id="widget-btn"></button>
+        <button class="tool" id="settings-btn"></button>
+        <button class="tool" id="lang-btn"></button>
+      </nav>
+
+      <div id="modal-root"></div>
+    </div>
+  </div>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/themes.js"></script>
+  <script src="../shared/dates.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

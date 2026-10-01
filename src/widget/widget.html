@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' file:; img-src 'self' file: data:; media-src 'self' file:; style-src 'self' 'unsafe-inline' file:; font-src 'self' file:; script-src 'self' file:">
+  <title>Tartiba widget</title>
+  <link rel="stylesheet" href="../shared/shared.css">
+  <link rel="stylesheet" href="widget.css">
+</head>
+<body>
+  <header class="w-head">
+    <div class="w-title">
+      <b id="w-title"></b>
+      <span id="w-date"></span>
+    </div>
+    <div class="w-btns">
+      <button id="w-pin" class="w-btn"></button>
+      <button id="w-open" class="w-btn"></button>
+      <button id="w-close" class="w-btn"></button>
+    </div>
+  </header>
+  <main class="w-list" id="w-list"></main>
+
+  <script src="../shared/i18n.js"></script>
+  <script src="../shared/themes.js"></script>
+  <script src="../shared/dates.js"></script>
+  <script src="../shared/common.js"></script>
+  <script src="widget.js"></script>
+</body>
+</html>

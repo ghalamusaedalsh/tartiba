@@ -1,0 +1,65 @@
+/* The widget scales everything from the window size, so the checkbox, the task
+   name and the timer stay visible however small or big it is resized. */
+html {
+  font-size: clamp(11px, min(5.2vw, 8vh), 30px);
+}
+body {
+  display: flex; flex-direction: column; height: 100vh;
+  background: var(--card); color: var(--text);
+  border: 1px solid color-mix(in srgb, var(--tag) 45%, transparent);
+}
+
+.w-head {
+  -webkit-app-region: drag;
+  flex: none; display: flex; align-items: center; gap: .4rem;
+  padding: .35rem .45rem; padding-inline-start: .7rem;
+  background: var(--tag); color: var(--tagText);
+  background-image: repeating-linear-gradient(90deg, transparent 0 .55rem, color-mix(in srgb, var(--tagDash) 70%, transparent) .55rem .95rem);
+  background-size: 100% 2px; background-repeat: no-repeat; background-position: 0 calc(100% - 3px);
+}
+.w-title { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.15; }
+.w-title b { font-size: 1rem; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#w-date { font-size: .62rem; font-weight: 600; opacity: .85; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-btns { flex: none; display: flex; gap: .15rem; -webkit-app-region: no-drag; }
+.w-btn {
+  width: 1.55rem; height: 1.55rem; border: 0; border-radius: .45rem; padding: .25rem;
+  background: transparent; color: var(--tagText); display: grid; place-items: center;
+}
+.w-btn svg { width: 100%; height: 100%; }
+.w-btn:hover { background: color-mix(in srgb, var(--tagText) 20%, transparent); }
+#w-pin.on { background: color-mix(in srgb, var(--tagText) 24%, transparent); }
+
+.w-list { flex: 1; min-height: 0; overflow-y: auto; overflow-x: hidden; padding: .2rem .5rem .4rem; }
+.w-empty { height: 100%; display: grid; place-items: center; text-align: center; color: var(--muted); font-weight: 700; font-size: .85rem; line-height: 1.4; padding: .4rem; }
+.w-empty small { display: block; font-size: .7rem; font-weight: 600; opacity: .85; }
+
+.w-task {
+  display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; gap: .45rem;
+  min-height: 2.1rem; padding: .25rem 0; border-bottom: 1px dashed var(--line);
+}
+.w-task:last-child { border-bottom: 0; }
+.w-box {
+  width: 1.2rem; height: 1.2rem; border: .14rem solid var(--text); border-radius: .3rem; padding: 0;
+  background: transparent; color: var(--accent); display: grid; place-items: center;
+}
+.w-box svg { width: 100%; height: 100%; }
+.w-box:hover { background: var(--soft); }
+.w-name { min-width: 0; font-size: .95rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.w-task.done .w-name { text-decoration: line-through; text-decoration-thickness: .12rem; color: var(--muted); }
+.w-timer { display: flex; align-items: center; gap: .3rem; }
+.w-timer .lcd { font-size: .78rem; }
+.w-play {
+  width: 1.35rem; height: 1.35rem; border: 0; border-radius: 50%; padding: .15rem;
+  background: var(--accent); color: var(--accentText); display: grid; place-items: center; flex: none;
+}
+.w-play svg { width: 100%; height: 100%; }
+
+/* very small widgets: hide the date line, keep everything else */
+@media (max-height: 170px) { #w-date { display: none; } }
+
+/* alarm banner inside the small widget */
+.alarm-banner { top: 6px; padding: .35rem .45rem; gap: .4rem; border-radius: .6rem; width: calc(100% - 12px); }
+.alarm-bell { width: 1.2rem; height: 1.2rem; }
+.alarm-text b { font-size: .8rem; }
+.alarm-text span { font-size: .7rem; }
+.alarm-stop { padding: .2rem .6rem; font-size: .75rem; }

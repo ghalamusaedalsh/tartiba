@@ -1,0 +1,79 @@
+/* Shared by the main window and the widget. */
+@font-face {
+  font-family: 'Cairo';
+  src: url('../../assets/fonts/Cairo-Variable.ttf') format('truetype');
+  font-weight: 200 1000;
+  font-display: block;
+}
+@font-face {
+  font-family: 'DSEG7';
+  src: url('../../assets/fonts/DSEG7Classic-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-display: block;
+}
+
+:root {
+  --font: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
+  --digits: 'DSEG7', 'Consolas', monospace;
+  --red: #e40c18;
+  --done: #3a9d4a;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  font-family: var(--font);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  overflow: hidden;
+}
+button, input, select, textarea { font: inherit; color: inherit; }
+button { cursor: pointer; }
+input, textarea { user-select: text; }
+[hidden] { display: none !important; }
+svg { display: block; }
+
+.gingham {
+  background-color: var(--base);
+  background-image:
+    linear-gradient(90deg, transparent 50%, var(--stripe) 50%),
+    linear-gradient(transparent 50%, var(--stripe) 50%);
+  background-size: calc(256px * var(--scale, 1)) calc(256px * var(--scale, 1));
+  background-position: 0 calc(-36px * var(--scale, 1));
+}
+
+/* digital timer: faint 88:88:88 behind the real digits, like an LCD */
+.lcd { position: relative; display: inline-block; font-family: var(--digits); font-weight: 700; white-space: nowrap; direction: ltr; line-height: 1; }
+.lcd::before { content: '88:88:88'; position: absolute; inset: 0; opacity: .06; }
+.lcd.finished { color: var(--danger); animation: blink 1s steps(2, start) 6; }
+@keyframes blink { to { visibility: hidden; } }
+
+/* alarm banner */
+.alarm-banner {
+  position: fixed; z-index: 1000; left: 50%; top: 14px; transform: translateX(-50%);
+  display: flex; align-items: center; gap: 12px; max-width: calc(100% - 20px);
+  padding: 10px 12px 10px 14px; border-radius: 16px;
+  background: var(--tag); color: var(--tagText);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, .28);
+  animation: drop .35s cubic-bezier(.2, 1.4, .4, 1);
+}
+.alarm-bell { width: 30px; height: 30px; flex: none; animation: ring .5s ease-in-out infinite alternate; }
+.alarm-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.alarm-text b { font-size: 16px; }
+.alarm-text span { font-size: 14px; opacity: .9; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.alarm-stop {
+  flex: none; border: 0; border-radius: 999px; padding: 6px 16px; font-weight: 800;
+  background: var(--tagText); color: var(--tag);
+}
+@keyframes drop { from { transform: translate(-50%, -40px); opacity: 0; } }
+@keyframes ring { from { transform: rotate(-14deg); } to { transform: rotate(14deg); } }
+
+/* thin themed scrollbars */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-thumb { background: color-mix(in srgb, var(--muted) 45%, transparent); border-radius: 10px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* user-written text keeps its own direction but lines up with the interface */
+html[dir="ltr"] [dir="auto"]:not(#quote-text) { text-align: left; }
+html[dir="rtl"] [dir="auto"]:not(#quote-text) { text-align: right; }

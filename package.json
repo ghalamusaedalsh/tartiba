@@ -1,0 +1,47 @@
+{
+  "name": "tartiba",
+  "productName": "Tartiba",
+  "version": "1.0.0",
+  "description": "ترتيبة — a cozy corkboard calendar and task planner for Windows, with a desktop widget.",
+  "main": "src/main.js",
+  "author": "Ghala Alshehri",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "electron .",
+    "test": "node --test test/store.test.js",
+    "dist": "electron-builder --win nsis portable",
+    "dist:dir": "electron-builder --win dir"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.ghala.tartiba",
+    "productName": "Tartiba",
+    "copyright": "Ghala Alshehri",
+    "files": [
+      "src/**/*",
+      "assets/**/*",
+      "package.json"
+    ],
+    "win": {
+      "icon": "assets/icon.ico",
+      "target": [
+        "nsis",
+        "portable"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "shortcutName": "Tartiba ترتيبة"
+    },
+    "portable": {
+      "artifactName": "Tartiba-Portable-${version}.exe"
+    }
+  }
+}
