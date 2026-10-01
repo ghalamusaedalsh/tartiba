@@ -70,7 +70,7 @@
   function renderAll() {
     T.setLang(S.settings.lang);
     T.applyTheme(S.settings.theme);
-    document.title = T.t('appName') + ' — Tartiba';
+    document.title = T.lang === 'ar' ? 'ترتيبة — Tartiba' : 'Tartiba · ترتيبة';
     renderToolbar();
     renderPhotos();
     renderQuote();
