@@ -37,9 +37,24 @@ npm run dist
 
 The installer (`Tartiba Setup 1.0.0.exe`) and a portable version appear in the `dist` folder.
 
+## Build for the Microsoft Store · متجر مايكروسوفت
+
+```
+npm run dist:store
+```
+
+`Tartiba-Store-1.0.0.appx` appears in the `dist` folder (this only works on Windows). Upload it in Partner Center under **Packages**. It is not signed, because Microsoft signs it during submission, so it cannot be installed by double-clicking.
+
+- The Store identity (`identityName`, `publisher`, `publisherDisplayName`) is in the `appx` section of `package.json` and must match the app's **Product identity** page in Partner Center.
+- Every new submission needs a higher `version` in `package.json`.
+- The Store tiles and icons are in `build/appx`, generated from `assets/icon.png` by `tools/make_store_icons.py`.
+- The Store version has no "open when Windows starts" option, because Store apps cannot register for startup the way the normal installer does.
+
 ## Where your data lives
 
 `%APPDATA%\Tartiba\tartiba-data.json` (tasks, quotes, settings). Photos and your chosen timer sound are copied into the same folder, so moving or deleting the originals doesn't break anything.
+
+The Microsoft Store version keeps the same files in the app's own private folder, which Windows removes when the app is uninstalled.
 
 ## Project layout
 
@@ -50,6 +65,7 @@ src/renderer/        calendar, tasks and settings screens
 src/widget/          the desktop widget
 src/shared/          languages, themes, Hijri dates, shared helpers
 assets/              board image, fonts, alarm sound, icon
+build/appx/          Microsoft Store tiles and icons
 tools/               scripts that generated the assets from the designs
 ```
 

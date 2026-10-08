@@ -433,7 +433,9 @@
       loginCb.checked = !!S.settings.openWidgetAtLogin;
       loginCb.addEventListener('change', () => api.op('setOpenWidgetAtLogin', loginCb.checked));
       const widgetRow = h('div', { class: 'row' });
-      panel.append(h('label', { class: 'check-row' }, loginCb, h('span', { text: T.t('openAtLogin') })), h('div', { style: { height: '12px' } }), widgetRow);
+      // the Microsoft Store version cannot start with Windows, so the option is left out there
+      if (S.canOpenAtLogin !== false) panel.append(h('label', { class: 'check-row' }, loginCb, h('span', { text: T.t('openAtLogin') })), h('div', { style: { height: '12px' } }));
+      panel.append(widgetRow);
 
       const refreshDynamic = () => {
         soundRow.innerHTML = '';
@@ -446,8 +448,8 @@
             btn.onclick = () => { T.stopAlarm(); refreshDynamic(); };
             a.addEventListener('ended', () => refreshDynamic());
           } }),
-          h('button', { class: 'btn primary', text: T.t('changeSound'), onclick: () => api.op('pickSound') }),
-          S.isDefaultSound ? null : h('button', { class: 'btn', text: T.t('useDefault'), onclick: () => api.op('resetSound') }));
+          h('button', { class: 'btn primary', text: T.t('changeSound'), onclick: () => api.op('pickSound') }));
+        if (!S.isDefaultSound) soundRow.append(h('button', { class: 'btn', text: T.t('useDefault'), onclick: () => api.op('resetSound') }));
         widgetRow.innerHTML = '';
         widgetRow.append(h('button', { class: 'btn', text: S.widget.open ? T.t('hideWidget') : T.t('showWidget'), onclick: () => api.op('toggleWidget') }));
         loginCb.checked = !!S.settings.openWidgetAtLogin;

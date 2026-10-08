@@ -11,6 +11,7 @@
     "start": "electron .",
     "test": "node --test test/store.test.js",
     "dist": "electron-builder --win nsis portable --publish never",
+    "dist:store": "electron-builder --win appx --publish never",
     "dist:dir": "electron-builder --win dir"
   },
   "dependencies": {},
@@ -42,6 +43,19 @@
     },
     "portable": {
       "artifactName": "Tartiba-Portable-${version}.exe"
+    },
+    "appx": {
+      "identityName": "ghala.Tartiba",
+      "publisher": "CN=FD55B69F-D935-4A59-A8E8-D5EE3407BECB",
+      "publisherDisplayName": "ghala",
+      "applicationId": "Tartiba",
+      "displayName": "Tartiba",
+      "backgroundColor": "transparent",
+      "languages": [
+        "en-US",
+        "ar-SA"
+      ],
+      "artifactName": "Tartiba-Store-${version}.appx"
     }
   }
 }

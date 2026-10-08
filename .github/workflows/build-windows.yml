@@ -18,10 +18,10 @@ jobs:
           node-version: 22
       - run: npm install
       - run: npm test
-      - name: Build installer and portable app
+      - name: Build installer, portable app and Microsoft Store package
         run: |
           set -o pipefail
-          npx electron-builder --win nsis portable --publish never 2>&1 | tee build.log
+          npx electron-builder --win nsis portable appx --publish never 2>&1 | tee build.log
         env:
           CSC_IDENTITY_AUTO_DISCOVERY: false
       - name: Show build errors
@@ -31,4 +31,10 @@ jobs:
         with:
           name: Tartiba-Windows
           path: dist/*.exe
+          if-no-files-found: error
+      # the Store package is left unsigned on purpose: Microsoft signs it during submission
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Tartiba-Store
+          path: dist/*.appx
           if-no-files-found: error

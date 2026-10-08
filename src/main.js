@@ -12,9 +12,12 @@ const ROOT = path.join(__dirname, '..');
 const ASSETS = path.join(ROOT, 'assets');
 const DEFAULT_SOUND = path.join(ASSETS, 'sounds', 'alarm-clock.wav');
 const WIDGET_ONLY = process.argv.includes('--widget-only');
+// true when installed from the Microsoft Store (running inside an AppX/MSIX package)
+const IS_STORE = process.windowsStore === true;
 
 if (process.env.TARTIBA_DATA_DIR) app.setPath('userData', process.env.TARTIBA_DATA_DIR);
-app.setAppUserModelId(APP_ID);
+// a Store package already has its own identity from Windows; overriding it breaks the taskbar icon
+if (!IS_STORE) app.setAppUserModelId(APP_ID);
 
 if (!app.requestSingleInstanceLock()) {
   app.quit();
@@ -74,6 +77,7 @@ function publicState() {
     soundUrl: fileUrl(state.settings.sound && fs.existsSync(state.settings.sound) ? state.settings.sound : DEFAULT_SOUND),
     isDefaultSound: !state.settings.sound,
     assetsUrl: fileUrl(ASSETS),
+    canOpenAtLogin: !IS_STORE,
   };
 }
 
@@ -264,6 +268,8 @@ function createTray() {
 
 // ---------- start with Windows ----------
 function applyLoginItem() {
+  // Store packages cannot register themselves to start with Windows this way
+  if (IS_STORE) return;
   if (process.platform !== 'win32' && process.platform !== 'darwin') return;
   const args = app.isPackaged ? ['--widget-only'] : [app.getAppPath(), '--widget-only'];
   try {
