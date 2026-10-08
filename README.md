@@ -47,6 +47,7 @@ npm run dist:store
 
 - The Store identity (`identityName`, `publisher`, `publisherDisplayName`) is in the `appx` section of `package.json` and must match the app's **Product identity** page in Partner Center.
 - Every new submission needs a higher `version` in `package.json`.
+- `python tools/check_store_package.py dist/Tartiba-Store-1.0.0.appx` checks the package against `package.json` before you upload it (the GitHub build runs it automatically).
 - The Store tiles and icons are in `build/appx`, generated from `assets/icon.png` by `tools/make_store_icons.py`.
 - The Store version has no "open when Windows starts" option, because Store apps cannot register for startup the way the normal installer does.
 
